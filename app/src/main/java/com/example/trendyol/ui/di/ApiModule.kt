@@ -1,6 +1,6 @@
 package com.example.trendyol.ui.di
 
-import com.example.trendyol.data.api.TYWidgetApi
+import com.example.trendyol.data.api.TrendyolApi
 import com.example.trendyol.network.RetrofitProvider
 import dagger.Module
 import dagger.Provides
@@ -14,6 +14,6 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideWidgetApi(retrofitProvider: RetrofitProvider): TYWidgetApi =
-        retrofitProvider.create(TYWidgetApi::class.java)
+    fun provideWidgetApi(retrofitProvider: RetrofitProvider): TrendyolApi =
+        retrofitProvider.create(TrendyolApi::class.java)
 }

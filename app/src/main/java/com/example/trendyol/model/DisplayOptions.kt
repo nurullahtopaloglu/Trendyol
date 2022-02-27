@@ -6,5 +6,7 @@ data class DisplayOptions (
 	val showProductFavoredButton : Boolean,
 	val showClearButton : Boolean,
 	val showCountdown : Boolean,
-	val showCountOnTitle : Boolean
+	val showCountOnTitle : Boolean,
+	val paddingTopBottom : Int = 0,
+	val paddingRightLeft : Int = 0
 )

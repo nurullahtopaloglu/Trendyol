@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.example.trendyol.R
 import com.example.trendyol.databinding.FragmentMainBinding
 import com.example.trendyol.ui.MainActivity
@@ -35,12 +37,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getWidgets()
-
         binding.rvHome.adapter = homeAdapter
         viewModel.widgetResponse.observe(viewLifecycleOwner, Observer {
             homeAdapter.setData(it.widgets)
         })
+
+        viewModel.productList.observe(viewLifecycleOwner, Observer { pair ->
+            homeAdapter.setProducts(pair.first, pair.second,
+                onClick = { product ->
+                    viewModel.selectedProduct = product
+                    Navigation.findNavController(requireActivity(), R.id.fragment_container_main)
+                        .navigate(R.id.action_mainFragment_to_detailFragment)
+            })
+        })
+
+        if (viewModel.widgetResponse.value == null){
+            viewModel.getWidgets()
+        }
     }
 
     override fun onResume() {

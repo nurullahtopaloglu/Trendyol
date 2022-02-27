@@ -7,10 +7,6 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-/**
- * Legacy service calls checks status in ui layer
- * returns directly service response
- */
 suspend fun <T : Any> safeApiCall(call: suspend () -> Response<T>): NetworkResult<T> {
     try {
         val apiResponse = call.invoke()

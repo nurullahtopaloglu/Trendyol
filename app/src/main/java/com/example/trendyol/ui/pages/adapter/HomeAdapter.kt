@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trendyol.databinding.*
+import com.example.trendyol.model.ProductResponse
 import com.example.trendyol.model.Widgets
 import com.example.trendyol.model.enum.WidgetTypeEnum
 import com.example.trendyol.ui.pages.holder.*
@@ -21,6 +22,8 @@ class HomeAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
     }
 
     private var widgets: List<Widgets>? = null
+    private var products: List<ProductResponse>? = null
+    var onClick: (productResponse: ProductResponse) -> Unit? = {  }
 
     override fun getItemViewType(position: Int): Int {
         return when (widgets?.get(position)?.getWidgetType()) {
@@ -78,10 +81,10 @@ class HomeAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
                 holder.bind(widgets!![position])
             }
             is ProductSliderHolder -> {
-                holder.bind(widgets!![position])
+                holder.bind(products, widgets!![position])
             }
             is ProductListingHolder -> {
-                holder.bind(widgets!![position])
+                holder.bind(products, widgets!![position], onClick)
             }
         }
     }
@@ -89,5 +92,11 @@ class HomeAdapter @Inject constructor() : RecyclerView.Adapter<RecyclerView.View
     fun setData(list: List<Widgets>) {
         widgets = list
         notifyDataSetChanged()
+    }
+
+    fun setProducts(list: List<ProductResponse>, index: Int, onClick: (productResponse: ProductResponse) -> Unit?) {
+        this.products = list
+        this.onClick = onClick
+        notifyItemChanged(index)
     }
 }

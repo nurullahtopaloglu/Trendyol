@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.trendyol.model.Widgets
+import com.squareup.picasso.Picasso
 
 fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -22,18 +23,7 @@ fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toIn
 val View.lifecycleOwner get() = ViewTreeLifecycleOwner.get(this)
 
 fun ImageView.loadImage(imageUrl: String) {
-    val imageView = this
-    Glide.with(imageView.context)
-        .asBitmap()
-        .load(imageUrl)
-        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        .into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                imageView.setImageBitmap(resource)
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {}
-        })
+    Picasso.get().load(imageUrl).into(this)
 }
 
 fun CardView.setCardConfig(model: Widgets) {

@@ -17,7 +17,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpImages"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="500dp"
             android:background="@color/pale_gray"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
